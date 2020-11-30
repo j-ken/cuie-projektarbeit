@@ -1,0 +1,19 @@
+
+.background {
+    -fx-fill: linear-gradient(from 50% 0% to 50% 100%,
+    rgba(0, 217, 90, 1.0)   0%,
+    rgba(0, 131, 34, 1.0)   100%);
+}
+
+
+.inner-circle {
+    -fx-fill: linear-gradient(from 17% 13% to 84% 84%,
+    rgba(0, 217, 90, 1.0)   0%,
+    rgba(0, 177, 45, 1.0)   100%);
+}
+
+.glow {
+    -fx-fill: linear-gradient(from 17% 13% to 50% 46%,
+    rgba(143, 255, 180, 0.5)   0%,
+    rgba(143, 255, 172, 0.0)   100%);
+}

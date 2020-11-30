@@ -1,0 +1,8 @@
+.root-pane {
+    -fx-padding: 20;
+}
+
+.button {
+    -fx-text-fill: blue;
+    -fx-font-size: 28;
+}
