@@ -13,6 +13,11 @@ import javafx.scene.layout.VBox;
 
 import java.time.LocalTime;
 
+//ToDo
+//Layout?
+//Label Abflugzeit wohin?
+//Abflugzeit -> Cancel wäre sinnvoll?
+
 
 public class DemoPane extends BorderPane {
     private final PresentationModel pm;
@@ -23,9 +28,9 @@ public class DemoPane extends BorderPane {
     private Slider hourSlider;
     private Slider minuteSlider;
 
-    private CheckBox  readOnlyBox;
-    private CheckBox  mandatoryBox;
-    private TextField labelField;
+    private CheckBox cancelledBox;
+    private CheckBox delayedBox;
+    private TextField flightNoField;
 
     public DemoPane(PresentationModel pm) {
         this.pm = pm;
@@ -43,18 +48,18 @@ public class DemoPane extends BorderPane {
         timeLabel    = new Label();
         hourSlider   = new Slider(0, 23, 0);
         minuteSlider = new Slider(0, 59, 0);
-        readOnlyBox  = new CheckBox();
-        mandatoryBox = new CheckBox();
-        labelField   = new TextField();
+        cancelledBox = new CheckBox();
+        delayedBox = new CheckBox();
+        flightNoField = new TextField();
     }
 
     private void layoutControls() {
         setCenter(businessControl);
-        VBox box = new VBox(10, new Label("Time Control Properties"),
+        VBox box = new VBox(10, new Label("Scheduled Departure Time"),
                             timeLabel, hourSlider, minuteSlider,
-                            new Label("readOnly"), readOnlyBox,
-                            new Label("mandatory"), mandatoryBox,
-                            new Label("Label"), labelField);
+                            new Label("Flight No."), flightNoField,
+                            new Label("Delayed"), delayedBox,
+                            new Label("Cancelled"), cancelledBox);
         box.setPadding(new Insets(10));
         box.setSpacing(10);
         setRight(box);
@@ -81,15 +86,18 @@ public class DemoPane extends BorderPane {
 
     private void setupBindings() {
         timeLabel.textProperty().bind(pm.startTimeProperty().asString());
-        readOnlyBox.selectedProperty().bindBidirectional(pm.readOnlyProperty());
-        mandatoryBox.selectedProperty().bindBidirectional(pm.mandatoryProperty());
-        labelField.textProperty().bindBidirectional(pm.labelProperty());
+        cancelledBox.selectedProperty().bindBidirectional(pm.delayedProperty());
+        delayedBox.selectedProperty().bindBidirectional(pm.cancelledProperty());
+        flightNoField.textProperty().bindBidirectional(pm.labelProperty());
 
         //todo: setup bindings to businesscontrol
         businessControl.timeValueProperty().bindBidirectional(pm.startTimeProperty());
         businessControl.captionProperty().bind(pm.labelProperty());
 
-        businessControl.mandatoryProperty().bind(pm.mandatoryProperty());
+        businessControl.mandatoryProperty().bind(pm.cancelledProperty());
+        businessControl.cancelledProperty().bind(pm.delayedProperty().not());
+
+
     }
 
 }

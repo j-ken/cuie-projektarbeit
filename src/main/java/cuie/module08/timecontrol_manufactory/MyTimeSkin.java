@@ -7,7 +7,6 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
-import javafx.util.converter.LocalTimeStringConverter;
 
 class MyTimeSkin extends SkinBase<MyTimeControl> {
     // wird spaeter gebraucht
@@ -25,6 +24,10 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
     private TextField editableTimeField;
     private Text captionLabel;
+    //Hier muss umgestellt werden für spezifisches Controll Flugi ;)
+    private Label cancelledFieldBeforeTime;
+    private Label cancelledFieldAfterTime;
+    private Label cancelledField;
 
     MyTimeSkin(MyTimeControl control) {
         super(control);
@@ -41,24 +44,51 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void initializeParts() {
+
+        cancelledFieldBeforeTime = new Label("Departing at: ");
+        cancelledFieldBeforeTime.setVisible(false);
+
+        cancelledFieldAfterTime = new Label ("is cancelled");
+        cancelledFieldAfterTime.setVisible(false);
+
         editableTimeField = new TextField();
         editableTimeField.getStyleClass().add("editable-time-field");
+        editableTimeField.setVisible(getSkinnable().getCancelled());
 
         captionLabel = new Text();
         captionLabel.getStyleClass().add("caption-label");
+
+        cancelledField = new Label();
+        cancelledField.setVisible(!getSkinnable().getCancelled());
+        cancelledField.getStyleClass().add("read-only-field");
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(captionLabel, editableTimeField));
+        getChildren().addAll(new VBox(  captionLabel,
+                                        editableTimeField, cancelledFieldBeforeTime,
+                cancelledField, cancelledFieldAfterTime));
     }
 
     private void setupValueChangeListeners() {
+        getSkinnable().cancelledProperty().addListener((observable, oldValue, newValue) -> {
+            if(newValue){
+                editableTimeField.setVisible(true);
+                cancelledField.setVisible(false);
+                cancelledFieldBeforeTime.setVisible(false);
+                cancelledFieldAfterTime.setVisible(false);
+            }
+            else{
+                editableTimeField.setVisible(false);
+                cancelledField.setVisible(true);
+                cancelledFieldBeforeTime.setVisible(true);
+                cancelledFieldAfterTime.setVisible(true);
+            }
+        });
     }
 
     private void setupBindings() {
-        editableTimeField.textProperty().bindBidirectional(getSkinnable().timeValueProperty(),
-                                                           new LocalTimeStringConverter());
-
+        editableTimeField.textProperty().bindBidirectional(getSkinnable().timeAsStringProperty());
         captionLabel.textProperty().bind(getSkinnable().captionProperty());
+        cancelledField.textProperty().bind(getSkinnable().timeValueProperty().asString());
     }
 }

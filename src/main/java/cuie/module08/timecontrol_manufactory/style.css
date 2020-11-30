@@ -3,22 +3,41 @@
     -fx-background-color: white;
 }
 
-.my-time-control:mandatory .editable-time-field {
+.my-time-control:delayed .editable-time-field {
     -fx-font-family: 'DigitalDisplay';
-    -fx-background-color: red;
-    -fx-text-fill: yellow;
+    -fx-background-color: rosybrown;
+    -fx-text-fill: black;
     -fx-alignment: center;
     -fx-font-size: 22pt;
 }
 
 .my-time-control .editable-time-field {
     -fx-font-family: 'DigitalDisplay';
-    -fx-background-color: black;
-    -fx-text-fill: yellow;
+    -fx-background-color: darkseagreen;
+    -fx-text-fill: black;
     -fx-alignment: center;
     -fx-font-size: 22pt;
 }
 
 .my-time-control .caption-label {
-    -fx-fill: pink;
+    -fx-fill: black;
 }
+
+
+.my-time-control:cancelled .editable-time-field {
+    -fx-font-family: 'DigitalDisplay';
+    -fx-background-color: red;
+    -fx-text-fill: black;
+    -fx-alignment: center;
+    -fx-font-size: 22pt;
+}
+
+.my-time-control .read-only-field {
+    -fx-font-family: 'DigitalDisplay';
+    -fx-background-color: black;
+    -fx-text-fill: white;
+    -fx-alignment: center;
+    -fx-font-size: 22pt;
+}
+
+

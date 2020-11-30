@@ -7,9 +7,9 @@ import java.time.LocalTime;
 
 public class PresentationModel {
     private final ObjectProperty<LocalTime> startTime = new SimpleObjectProperty<>(LocalTime.now());
-    private final StringProperty            label     = new SimpleStringProperty("Time (HH:mm)");
-    private final BooleanProperty           mandatory = new SimpleBooleanProperty(true);
-    private final BooleanProperty           readOnly  = new SimpleBooleanProperty(false);
+    private final StringProperty            label     = new SimpleStringProperty("");
+    private final BooleanProperty           cancelled = new SimpleBooleanProperty(false);
+    private final BooleanProperty delayed = new SimpleBooleanProperty(false);
 
 
     public LocalTime getStartTime() {
@@ -36,27 +36,27 @@ public class PresentationModel {
         this.label.set(label);
     }
 
-    public boolean isMandatory() {
-        return mandatory.get();
+    public boolean getCancelled() {
+        return cancelled.get();
     }
 
-    public BooleanProperty mandatoryProperty() {
-        return mandatory;
+    public BooleanProperty cancelledProperty() {
+        return cancelled;
     }
 
-    public void setMandatory(boolean mandatory) {
-        this.mandatory.set(mandatory);
+    public void setCancelled(boolean cancelled) {
+        this.cancelled.set(cancelled);
     }
 
-    public boolean isReadOnly() {
-        return readOnly.get();
+    public boolean getDelayed() {
+        return delayed.get();
     }
 
-    public BooleanProperty readOnlyProperty() {
-        return readOnly;
+    public BooleanProperty delayedProperty() {
+        return delayed;
     }
 
-    public void setReadOnly(boolean readOnly) {
-        this.readOnly.set(readOnly);
+    public void setDelayed(boolean delayed) {
+        this.delayed.set(delayed);
     }
 }
