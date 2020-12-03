@@ -14,6 +14,7 @@ public class MyTimeControl extends Control {
 
     private static final PseudoClass DELAYED_CLASS = PseudoClass.getPseudoClass("delayed");
     private static final PseudoClass CANCELLED_CLASS = PseudoClass.getPseudoClass("cancelled");
+    private static final PseudoClass INVALID_CLASS = PseudoClass.getPseudoClass("invalid");
 
     private static final String CONVERTIBLE_REGEX = "now|(\\d{1,2}[:]{0,1}\\d{0,2})";
     private static final String TIME_FORMAT_REGEX = "\\d{2}:\\d{2}";
@@ -40,6 +41,13 @@ public class MyTimeControl extends Control {
         }
     };
 
+    private final BooleanProperty invalid = new SimpleBooleanProperty(){
+        @Override
+        protected void invalidated() {
+            pseudoClassStateChanged(INVALID_CLASS, get());
+        }
+    };
+
     private final BooleanProperty cancel = new SimpleBooleanProperty(){
         @Override
         protected void invalidated() {
@@ -62,11 +70,11 @@ public class MyTimeControl extends Control {
                         public LocalTime fromString(String value) {
                             try {
                                 LocalTime time = super.fromString(value);
-                                setDelayed(false);
+                                setInvalid(false);
                                 return time;
                             }
                             catch (Exception e){
-                                setCancelled(true);
+                                setInvalid(true);
                                 return getTimeValue();
                             }
                         }
@@ -183,5 +191,17 @@ public class MyTimeControl extends Control {
 
     public void setCancel(boolean cancel) {
         this.cancel.set(cancel);
+    }
+
+    public boolean isInvalid() {
+        return invalid.get();
+    }
+
+    public BooleanProperty invalidProperty() {
+        return invalid;
+    }
+
+    public void setInvalid(boolean invalid) {
+        this.invalid.set(invalid);
     }
 }

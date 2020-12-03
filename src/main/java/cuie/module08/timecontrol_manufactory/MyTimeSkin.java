@@ -5,6 +5,7 @@ import javafx.scene.control.SkinBase;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Text;
 
@@ -25,6 +26,7 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     private TextField editableTimeField;
     private Text captionLabel;
     //Hier muss umgestellt werden für spezifisches Controll Flugi ;)
+    private Label flugEingeben;
     private Label cancelledFieldBeforeTime;
     private Label cancelledFieldAfterTime;
     private Label cancelledField;
@@ -40,16 +42,24 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
 
     private void initializeSelf() {
         // getSkinnable().loadFonts("/fonts/Lato/Lato-Reg.ttf", "/fonts/Lato/Lato-Lig.ttf");
+        getSkinnable().loadFonts("/fonts/Skyfont/Skyfont-NonCommercial.otf", "/fonts/airport/Skyfont-NonCommercial.otf");
         getSkinnable().addStylesheetFiles("style.css");
     }
 
     private void initializeParts() {
 
+        flugEingeben = new Label("Departure Flight:   ");
+        flugEingeben.getStyleClass().add("flugEingeben");
+
         cancelledFieldBeforeTime = new Label("Departing at: ");
         cancelledFieldBeforeTime.setVisible(false);
+        cancelledFieldBeforeTime.getStyleClass().add("cancellLabel");
+
 
         cancelledFieldAfterTime = new Label ("is cancelled");
         cancelledFieldAfterTime.setVisible(false);
+        cancelledFieldAfterTime.getStyleClass().add("cancellLabel");
+
 
         editableTimeField = new TextField();
         editableTimeField.getStyleClass().add("editable-time-field");
@@ -64,9 +74,14 @@ class MyTimeSkin extends SkinBase<MyTimeControl> {
     }
 
     private void layoutParts() {
-        getChildren().addAll(new VBox(  captionLabel,
-                                        editableTimeField, cancelledFieldBeforeTime,
-                cancelledField, cancelledFieldAfterTime));
+
+
+        getChildren().addAll(new VBox(  new HBox(flugEingeben, captionLabel),
+                                        editableTimeField,
+                                        cancelledFieldBeforeTime,
+                                        cancelledField,
+                                        cancelledFieldAfterTime));
+
     }
 
     private void setupValueChangeListeners() {

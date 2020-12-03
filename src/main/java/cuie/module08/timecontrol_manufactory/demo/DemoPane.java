@@ -98,7 +98,6 @@ public class DemoPane extends BorderPane {
         businessControl.mandatoryProperty().bind(pm.cancelledProperty());
         businessControl.cancelledProperty().bind(pm.delayedProperty().not());
 
-
     }
 
 }

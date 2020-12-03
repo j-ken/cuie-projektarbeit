@@ -1,35 +1,61 @@
-.my-time-control {
-    -base-color: blue;
-    -fx-background-color: white;
-}
+/*.my-time-control {*/
+/*    -base-color: blue;*/
+/*    -fx-background-color: white;*/
+/*}*/
 
-.my-time-control:delayed .editable-time-field {
-    -fx-font-family: 'DigitalDisplay';
-    -fx-background-color: rosybrown;
-    -fx-text-fill: black;
+VBox {
+    -fx-background-color: black;
     -fx-alignment: center;
-    -fx-font-size: 22pt;
+    -fx-padding: 50px;
 }
 
 .my-time-control .editable-time-field {
-    -fx-font-family: 'DigitalDisplay';
+    -fx-font-size: 56px;
+    -fx-alignment: center;
+}
+
+
+.my-time-control:delayed .editable-time-field {
+    -fx-font-family: 'Skyfont';
+    -fx-background-color: rosybrown;
+    -fx-text-fill: black;
+    -fx-pref-height: 200px;
+}
+
+.my-time-control:invalid .editable-time-field {
+    -fx-font-family: 'Skyfont';
+    -fx-background-color: orangered;
+    -fx-text-fill: black;
+    -fx-pref-height: 200px;
+}
+
+.my-time-control .editable-time-field {
+    -fx-font-family: 'Skyfont';
     -fx-background-color: darkseagreen;
     -fx-text-fill: black;
-    -fx-alignment: center;
-    -fx-font-size: 22pt;
+    -fx-pref-height: 200px;
 }
 
 .my-time-control .caption-label {
-    -fx-fill: black;
+    -fx-font-size: 24px;
+    -fx-fill: white;
 }
 
+.my-time-control .cancellLabel {
+    -fx-text-fill: white;
+}
+
+.my-time-control .flugEingeben {
+    -fx-text-fill: white;
+    -fx-font-size: 24px;
+}
 
 .my-time-control:cancelled .editable-time-field {
     -fx-font-family: 'DigitalDisplay';
     -fx-background-color: red;
     -fx-text-fill: black;
     -fx-alignment: center;
-    -fx-font-size: 22pt;
+    -fx-pref-height: 200px;
 }
 
 .my-time-control .read-only-field {
@@ -37,7 +63,8 @@
     -fx-background-color: black;
     -fx-text-fill: white;
     -fx-alignment: center;
-    -fx-font-size: 22pt;
+    -fx-font-size: 56px;
+
 }
 
 
